@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="apiser-api-base" content="https://apirer-backend.onrender.com" />
+<title>APIRER | Your connected workspace</title>
+<style>
+:root{color-scheme:dark;--bg:#050816;--bg2:#101a33;--text:#f8fbff;--muted:#9eb0cc;--accent:#60a5fa;--accent2:#8b5cf6;--green:#34d399;--line:rgba(255,255,255,.12)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;background:radial-gradient(circle at 12% 8%,rgba(96,165,250,.2),transparent 27%),radial-gradient(circle at 88% 35%,rgba(139,92,246,.18),transparent 28%),linear-gradient(135deg,var(--bg),var(--bg2));background-attachment:fixed;overflow-x:hidden}
+body:before{content:'';position:fixed;inset:0;pointer-events:none;opacity:.18;background-image:radial-gradient(rgba(255,255,255,.1) 1px,transparent 1px);background-size:18px 18px}
+a{color:inherit;text-decoration:none}.wrap{width:min(1120px,calc(100% - 40px));margin:auto}
+.nav{height:76px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:2}
+.brand{font-weight:800;letter-spacing:.2em;display:flex;align-items:center}.brand span{color:var(--accent);margin-left:8px}
+.nav-links{display:flex;gap:26px;color:var(--muted);font-size:13px}.nav-links a:hover{color:var(--text)}
+.actions{display:flex;align-items:center;gap:10px}
+.btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:10px;padding:11px 16px;color:var(--text);font-size:13px;font-weight:700;background:rgba(255,255,255,.06);cursor:pointer;transition:transform .15s}
+.btn:hover{border-color:rgba(96,165,250,.62);background:rgba(96,165,250,.13)}
+.btn.primary{border:0;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 10px 28px rgba(37,99,235,.25)}
+.help{width:34px;height:34px;padding:0;border-radius:50%;font-size:16px}
+.btn:active,.auth-btn:active{transform:scale(.97)}
+.btn.loading{pointer-events:none;opacity:.72}.btn.loading:after{content:'';width:13px;height:13px;margin-left:9px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
+.hero{min-height:650px;display:grid;grid-template-columns:.9fr 1.1fr;align-items:center;gap:48px;padding:60px 0 80px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--green);font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.eyebrow:before{content:'';width:7px;height:7px;border-radius:50%;background:currentColor;box-shadow:0 0 14px currentColor}
+h1,h2{letter-spacing:-.03em}
+.hero h1{font-size:clamp(40px,5.4vw,66px);line-height:1.02;letter-spacing:-.04em;margin:18px 0;color:#fff}
+em{font-style:normal;background:linear-gradient(135deg,#93c5fd,#c4b5fd);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-copy{max-width:520px;color:var(--muted);font-size:17px;line-height:1.7}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}.hero-note{margin-top:18px;color:var(--muted);font-size:12px}
+.orbit{height:480px;position:relative}
+.orbit:before,.orbit:after{content:'';position:absolute;left:50%;top:50%;border:1px solid rgba(147,197,253,.18);border-radius:50%;animation:spin 25s linear infinite;pointer-events:none}
+.orbit:before{width:440px;height:440px;margin:-220px 0 0 -220px}.orbit:after{width:560px;height:560px;margin:-280px 0 0 -280px;border-color:rgba(196,181,253,.12);animation-direction:reverse}
+.hero-slider{position:absolute;inset:0;z-index:1;padding:12px;display:flex;border:1px solid rgba(255,255,255,.14);border-radius:22px;background:rgba(10,15,30,.6);backdrop-filter:blur(14px);box-shadow:0 24px 54px rgba(0,0,0,.35)}
+.section{padding:92px 0}.section-heading{max-width:620px;margin-bottom:34px}.section-heading h2{font-size:clamp(28px,4vw,44px);margin:12px 0}.section-heading p{color:var(--muted);line-height:1.7}
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.flow-step,.feature{border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.045);padding:22px;backdrop-filter:blur(16px)}
+.flow-step{min-height:170px}.number{color:var(--accent);font-size:12px;font-weight:800}
+.flow-step h3,.feature h3{margin:18px 0 8px;font-size:16px}.flow-step p,.feature p{margin:0;color:var(--muted);font-size:13px;line-height:1.65}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.feature{min-height:190px}.icon{font-size:26px}
+.privacy{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.privacy-panel{padding:30px;border-radius:16px;border:1px solid rgba(52,211,153,.2);background:linear-gradient(135deg,rgba(52,211,153,.1),rgba(96,165,250,.06))}
+.privacy-panel h3{margin:0 0 10px}.privacy-panel p{margin:0;color:var(--muted);line-height:1.7;font-size:14px}
+.footer{padding:34px 0 46px;color:var(--muted);font-size:12px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between}
+.reveal{animation:reveal .7s ease both}.delay{animation-delay:.15s}
+.sr{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}.sr.in{opacity:1;transform:none}
+@keyframes reveal{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}@keyframes spin{to{transform:rotate(360deg)}}
+.modal{position:fixed;inset:0;z-index:5;display:none;place-items:center;padding:20px;background:rgba(2,6,23,.72);backdrop-filter:blur(8px)}.modal.open{display:grid}
+.dialog{width:min(100%,420px);padding:30px;border:1px solid var(--line);border-radius:20px;background:rgba(10,15,30,.94);box-shadow:0 25px 70px rgba(0,0,0,.55)}
+.dialog-head{display:flex;justify-content:space-between;align-items:start}.dialog h2{margin:0 0 8px}.close{border:0;background:none;color:var(--muted);font-size:24px;cursor:pointer}
+.dialog p{color:var(--muted);font-size:13px;line-height:1.6}.auth-btn{width:100%;margin-top:10px}.msg{min-height:18px;color:#fb7185;font-size:13px;margin-top:12px;text-align:center}
+.master-mark{width:28px;height:28px;display:block;overflow:visible;filter:drop-shadow(0 0 8px rgba(96,165,250,.35))}
+.master-mark path,.master-mark line{fill:none;stroke:url(#apiser-gradient);stroke-width:1.5;stroke-linejoin:round}.master-mark circle{fill:#f8fbff}
+.provider-logo{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;margin-right:9px;font-weight:800;flex:none}
+.google-logo{font-size:20px;font-family:Arial,sans-serif;background:conic-gradient(from -45deg,#4285f4 0 25%,#34a853 25% 48%,#fbbc05 48% 72%,#ea4335 72%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.zoho-logo{border:1px solid #f05a47;border-radius:5px;color:#f05a47;font-size:13px;letter-spacing:-.08em}
+
+/* ===== animated connection scene (from your second file) ===== */
+.aps5{font-family:'Segoe UI',system-ui,sans-serif;color:#2b3a34}.aps5 *{box-sizing:border-box}
+.aps5-box{position:relative;width:100%;border:1px solid rgba(0,0,0,.08);border-radius:16px;overflow:hidden;background:radial-gradient(circle at 30% 20%,#f4f3ee,#e6e4dc)}
+.aps5-box svg{display:block;width:100%;height:100%}
+.aps5 .lab text{font-size:12.5px;font-weight:600;fill:#3b4a44;paint-order:stroke;stroke:#efede6;stroke-width:4px;stroke-linejoin:round}
+.aps5 .lab circle{fill:#2f6b57}.aps5 .lab .n{fill:#fff;stroke:none;font-size:11px;font-weight:800;text-anchor:middle}
+.aps5 .link{fill:none;stroke:#3d6b5b;stroke-width:1.6;stroke-dasharray:3 5}.aps5 .link.bt{stroke:#2563eb}
+.aps5 .work{fill:#9ff0c4;opacity:0;animation:aps5-work var(--wd,1.4s) ease-in-out infinite}
+.aps5 .arr{fill:rgba(52,211,153,.55);stroke:#2f6b57;stroke-width:1.2;opacity:0;animation:aps5-work var(--wd,1.4s) ease-in-out infinite}
+.aps5 .led{fill:#34d399;animation:aps5-blink 1.6s ease-in-out infinite}
+.aps5 .ringw{fill:none;stroke:#2f6b57;stroke-width:1.5;opacity:0;transform-box:fill-box;transform-origin:center;animation:aps5-ring var(--rd,2.4s) ease-out infinite}.aps5 .ringw.bt{stroke:#2563eb}
+@keyframes aps5-work{0%,100%{opacity:0}50%{opacity:.75}}@keyframes aps5-blink{50%{opacity:.3}}
+@keyframes aps5-ring{0%{transform:scale(.35);opacity:.85}100%{transform:scale(1.35);opacity:0}}
+@media(prefers-reduced-motion:reduce){.aps5 *{animation:none!important}.aps5 circle[visibility]{display:none}.aps5 .arr{opacity:1}}
+
+/* ===== plain animation window with sideways slide ===== */
+.hero-slider{padding:0;overflow:hidden}
+.stg{width:100%;height:100%}
+.stg .aps5-box{height:100%;border:0;border-radius:22px;cursor:grab;touch-action:pan-y;user-select:none}
+.stg .aps5-box:active{cursor:grabbing}
+.lay{position:absolute;inset:0;transition:transform .85s cubic-bezier(.65,0,.25,1);will-change:transform}
+/* download button hover animation */
+.dl{position:relative;overflow:hidden;gap:10px;transition:transform .25s,box-shadow .25s}
+.dl svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.dl:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(96,165,250,.45)}
+.dl:hover .dl-arrow{animation:dlbob .9s ease-in-out infinite}
+.dl:after{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.42),transparent);transform:skewX(-20deg)}
+.dl:hover:after{animation:dlshine .8s ease}
+@keyframes dlbob{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
+@keyframes dlshine{to{left:130%}}
+@media(max-width:800px){.nav-links{display:none}.hero{grid-template-columns:1fr;gap:28px;padding-top:40px}.orbit{height:440px}.orbit:before,.orbit:after{display:none}.flow{grid-template-columns:repeat(2,1fr)}.features,.privacy{grid-template-columns:1fr}}
+@media(max-width:520px){.wrap{width:min(100% - 28px,1120px)}.nav{height:68px}.nav .btn.primary{display:none}.hero h1{font-size:40px}.hero-copy{font-size:15px}.flow{grid-template-columns:1fr}.section{padding:64px 0}.footer{display:block}.footer span{display:block;margin-top:8px}}
+@media(prefers-reduced-motion:reduce){.sr{opacity:1;transform:none}.lay{transition:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" aria-hidden="true"><defs><linearGradient id="apiser-gradient" x1="0" y1="0" x2="52" y2="52"><stop offset="0" stop-color="#3B82F6"/><stop offset="1" stop-color="#8B5CF6"/></linearGradient></defs></svg>
+<header class="nav wrap"><a class="brand" href="apirer_dash_board.html"><svg class="master-mark" viewBox="0 0 52 52" aria-hidden="true"><path d="M26 3 49 26 26 49 3 26Z"/><line x1="26" y1="26" x2="26" y2="14.5"/><line x1="26" y1="26" x2="37.5" y2="26"/><line x1="26" y1="26" x2="26" y2="37.5"/><line x1="26" y1="26" x2="14.5" y2="26"/><circle cx="26" cy="26" r="3.8"/></svg><span>APIRER</span></a><nav class="nav-links"><a href="#how">How it works</a><a href="#features">Capabilities</a><a href="#security">Security</a></nav><div class="actions"><button class="btn help" aria-label="About APIRER" onclick="location.hash='how'">?</button><button class="btn" onclick="openAuth(this)">Sign in</button><button class="btn primary" onclick="openAuth(this)">Connect APISER</button></div></header>
+<main>
+<section class="hero wrap"><div class="reveal"><span class="eyebrow">Your devices, one workspace</span><h1>Bring your phone into your <em>cloud OS.</em></h1><p class="hero-copy">APIRER is the secure web home for APISER. Connect a phone, move through its authorized workspace, and keep files and tools close wherever you are.</p><div class="hero-actions"><a class="btn primary dl" id="dlBtn" href="APISER.apk" download><svg viewBox="0 0 24 24" aria-hidden="true"><g class="dl-arrow"><path d="M12 3v12M7 10l5 5 5-5"/></g><path d="M5 20h14"/></svg>Download</a><a class="btn" href="#how">See how it works</a></div><p class="hero-note">Private by design. Device data stays behind authenticated connections.</p></div>
+<div class="orbit reveal delay" aria-label="Animation: old phones working as one server, sending files to your laptop"><div class="hero-slider" id="heroStage"></div></div></section>
+
+
+<section class="section wrap" id="how"><div class="section-heading sr"><span class="eyebrow">A clear path to your workspace</span><h2>From phone to desktop in one secure handoff.</h2><p>Every APISER-generated link travels through the same verified backend flow. Visitors see only this public site until a valid, authorized connection is consumed.</p></div><div class="flow"><article class="flow-step sr"><span class="number">01 / DEVICE</span><h3>APISER phone</h3><p>Your phone requests a one-time link for its allowed workspace.</p></article><article class="flow-step sr" style="transition-delay:.1s"><span class="number">02 / TRUST</span><h3>Secure backend</h3><p>The backend validates expiry, account ownership, target and device permission.</p></article><article class="flow-step sr" style="transition-delay:.2s"><span class="number">03 / PORTAL</span><h3>APIRER</h3><p>This portal consumes the link once and establishes the scoped session.</p></article><article class="flow-step sr" style="transition-delay:.3s"><span class="number">04 / WORKSPACE</span><h3>APIRER OS</h3><p>You land in the exact authorized dashboard for that device.</p></article></div></section>
+<section class="section wrap" id="features"><div class="section-heading sr"><span class="eyebrow">One connected toolkit</span><h2>Useful on the move. Calm at your desk.</h2></div><div class="features">
+<article class="feature sr"><div class="icon">▣</div><h3>File access</h3><p>Browse the workspace you are authorized to use, without making private files public.</p></article>
+<article class="feature sr" style="transition-delay:.08s"><div class="icon">◫</div><h3>Thumbnails at a glance</h3><p>Recognize images and documents quickly with a focused visual workspace.</p></article>
+<article class="feature sr" style="transition-delay:.16s"><div class="icon">⌁</div><h3>Device connection</h3><p>Pair the right phone to the right dashboard through expiring, single-use links.</p></article>
+<article class="feature sr"><div class="icon">◉</div><h3>Online or offline</h3><p>Keep using the OS surface when connectivity changes, then sync when you are back.</p></article>
+<article class="feature sr" style="transition-delay:.08s"><div class="icon">↗</div><h3>Secure transfers</h3><p>Move authorized data through the APISER backend rather than exposed browser links.</p></article>
+<article class="feature sr" style="transition-delay:.16s"><div class="icon">⌘</div><h3>One workspace</h3><p>Files, device status and OS tools meet in one responsive interface.</p></article></div></section>
+<section class="section wrap" id="security"><div class="privacy"><div class="privacy-panel sr"><span class="eyebrow">Public by default</span><h3>Learn first. Connect when ready.</h3><p>The APIRER homepage explains the system without requiring an account. No phone files, device details or dashboard content are rendered here.</p></div><div class="privacy-panel sr" style="transition-delay:.12s"><span class="eyebrow">Private when connected</span><h3>Authorization travels with the link.</h3><p>One-time links remain compatible with the existing APISER backend and open only the dashboard the backend authorizes.</p></div></div></section>
+</main>
+<footer class="footer wrap"><strong>▲ APIRER</strong><span>Connected work, with clear boundaries.</span></footer>
+<div class="modal" id="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-title" onclick="if(event.target===this)closeAuth()"><div class="dialog"><div class="dialog-head"><div><span class="eyebrow">Private workspace</span><h2 id="auth-title">Sign in to APISER</h2></div><button class="close" aria-label="Close" onclick="closeAuth()">×</button></div><p>Use your verified Google or Zoho account to continue. APIRER never receives your provider password.</p><button class="btn primary auth-btn" onclick="startGoogleLogin()"><span class="provider-logo google-logo" aria-hidden="true">G</span>Continue with Google</button><button class="btn auth-btn" onclick="startZohoLogin()"><span class="provider-logo zoho-logo" aria-hidden="true">Z</span>Continue with Zoho</button><div class="msg" id="auth-msg"></div></div></div>
+
+<script>
+const API_BASE=document.querySelector('meta[name="apiser-api-base"]').content.replace(/\/$/,'');
+if(new URLSearchParams(location.search).has('token')){window.location.replace('apirer_dashboard.html'+location.search);}
+function openAuth(b){if(b){b.classList.add('loading');setTimeout(function(){b.classList.remove('loading')},450)}document.getElementById('auth-modal').classList.add('open')}
+function closeAuth(){document.getElementById('auth-modal').classList.remove('open')}
+function startGoogleLogin(){window.location.href=API_BASE+'/v1/auth/google'}
+function startZohoLogin(){window.location.href=API_BASE+'/v1/auth/zoho'}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAuth()});
+</script>
+
+<script>
+(function(){
+  /* ================= 3D scene builder (your animation, unchanged) ================= */
+  var S=17, C=.866025, OUT='#25332e';
+  var bx0=1e9,bx1=-1e9,by0=1e9,by1=-1e9;
+  function ext(x,y){bx0=Math.min(bx0,x);bx1=Math.max(bx1,x);by0=Math.min(by0,y);by1=Math.max(by1,y)}
+  function P(x,y,z){var sx=(x-y)*C*S, sy=(x+y)*.5*S-z*S; ext(sx,sy); return [sx,sy]}
+  function r1(n){return Math.round(n*10)/10}
+  function pts(a){return a.map(function(p){return r1(p[0])+','+r1(p[1])}).join(' ')}
+  function E(p){return r1(p[0])+' '+r1(p[1])}
+  function poly(a,fill,stroke,sw,extra){return '<polygon points="'+pts(a)+'" fill="'+fill+'" stroke="'+(stroke||'none')+'" stroke-width="'+(sw||1)+'" stroke-linejoin="round" '+(extra||'')+'/>'}
+  function line(a,stroke,sw){return '<polyline points="'+pts(a)+'" fill="none" stroke="'+stroke+'" stroke-width="'+sw+'" stroke-linecap="round" stroke-linejoin="round"/>'}
+  var T={cream:{t:'#f7f5ee',l:'#e4e0d4',r:'#cdc8b9'},grey:{t:'#dcdcd6',l:'#bdbdb5',r:'#a5a59d'},dark:{t:'#4a5550',l:'#333d38',r:'#262e2a'},
+         green:{t:'#4a7a6b',l:'#2f5a4d',r:'#234539'},orange:{t:'#ee9d6f',l:'#d9784f',r:'#bd6240'},plate:{t:'#f0eee6',l:'#d8d4c8',r:'#c3beb0'}};
+  function box3(x,y,z,w,d,h,c,sw,stroke){var t=T[c];stroke=stroke||OUT;sw=sw==null?1:sw;
+    return poly([P(x+w,y,z),P(x+w,y+d,z),P(x+w,y+d,z+h),P(x+w,y,z+h)],t.r,stroke,sw)+
+           poly([P(x,y+d,z),P(x+w,y+d,z),P(x+w,y+d,z+h),P(x,y+d,z+h)],t.l,stroke,sw)+
+           poly([P(x,y,z+h),P(x+w,y,z+h),P(x+w,y+d,z+h),P(x,y+d,z+h)],t.t,stroke,sw)}
+  function plate(x,y,w,d){return box3(x,y,0,w,d,.3,'plate',1,'#3d6b5b')+poly([P(x-.5,y-.5,.3),P(x+w+.5,y-.5,.3),P(x+w+.5,y+d+.5,.3),P(x-.5,y+d+.5,.3)],'none','#3d6b5b',1.1)}
+  function lab(n,txt,x,y,z){var p=P(x,y,z);ext(p[0]+130,p[1]+24);return '<g class="lab"><circle cx="'+r1(p[0])+'" cy="'+r1(p[1])+'" r="10"/><text class="n" x="'+r1(p[0])+'" y="'+r1(p[1]+4)+'">'+n+'</text><text x="'+r1(p[0]+16)+'" y="'+r1(p[1]+4.5)+'">'+txt+'</text></g>'}
+  function plen(a){var s=0;for(var i=1;i<a.length;i++)s+=Math.hypot(a[i][0]-a[i-1][0],a[i][1]-a[i-1][1]);return s}
+  function qlen(a,c,b){var s=0,p=a;for(var i=1;i<=24;i++){var t=i/24,u=1-t,q=[u*u*a[0]+2*u*t*c[0]+t*t*b[0],u*u*a[1]+2*u*t*c[1]+t*t*b[1]];s+=Math.hypot(q[0]-p[0],q[1]-p[1]);p=q}return s}
+  function dots(path,len,speed,gap,color,r){
+    var Tt=len/speed, n=Math.max(2,Math.round(len/gap)), o='';
+    for(var i=0;i<n;i++){var b=(i*Tt/n).toFixed(2);
+      o+='<circle r="'+r+'" fill="'+color+'" stroke="#fff" stroke-width=".8" visibility="hidden"><set attributeName="visibility" to="visible" begin="'+b+'s" fill="freeze"/><animateMotion dur="'+Tt.toFixed(2)+'s" begin="'+b+'s" repeatCount="indefinite" path="'+path+'"/></circle>'}
+    return o;
+  }
+  var CASES=['cream','grey','dark','orange','cream','dark','grey','cream','orange','grey','dark','cream'], CRACKED=[1,4,7,10], DIM=[3,9];
+  function phone(x,y,z,i){
+    var w=1.2,d=.24,h=2.8,yy=y+d;
+    var q=function(u,v){return P(x+.1+u*(w-.2),yy,z+.2+v*(h-.45))};
+    var quad=[q(0,0),q(1,0),q(1,1),q(0,1)], dim=DIM.indexOf(i)>-1;
+    var s=box3(x,y,z,w,d,h,CASES[i%12],.8);
+    s+=poly(quad,dim?'#1b2622':'#2f6b57','#111a16',.6);
+    if(!dim) for(var k=0;k<3;k++) s+=poly([q(.12,.16+k*.22),q(.88,.16+k*.22),q(.88,.28+k*.22),q(.12,.28+k*.22)],'#a9e0c4','none',0);
+    s+='<polygon class="work" style="animation-delay:'+(i*.09).toFixed(2)+'s" points="'+pts(quad)+'"/>';
+    if(CRACKED.indexOf(i)>-1) s+=line([q(.05,.02),q(.4,.38),q(.3,.58),q(.8,.97)],'#f4f1e8',.9)+line([q(.4,.38),q(.92,.3)],'#f4f1e8',.7)+line([q(.3,.58),q(.05,.75)],'#f4f1e8',.6);
+    var c=P(x+w/2,yy,z+h-.12); s+='<circle cx="'+r1(c[0])+'" cy="'+r1(c[1])+'" r="1.1" fill="#111"/>';
+    return s;
+  }
+  function rackSvg(){
+    var out=box3(14,-1.4,0,.3,.3,13.2,'dark',.8)+box3(20.9,-1.4,0,.3,.3,13.2,'dark',.8);
+    [.5,4.7,8.9].forEach(function(z,row){
+      out+=box3(14,-1.4,z,7.2,1.9,.2,'green',.8);
+      for(var k=0;k<4;k++) out+=phone(14.5+k*1.56,-.8,z+.2,row*4+k);
+      out+=box3(14.4,.1,z+.2,6.4,.35,.28,'dark',.8);
+      for(var k2=0;k2<4;k2++){var cx=14.5+k2*1.56+.6, a=P(cx,-.56,z+.3), b=P(cx,.1,z+.5); out+=line([a,[(a[0]+b[0])/2-2,(a[1]+b[1])/2+4],b],'#e8905f',1.3)}
+      for(var p2=0;p2<8;p2++){var pp=P(14.8+p2*.7,.45,z+.34);out+='<circle cx="'+r1(pp[0])+'" cy="'+r1(pp[1])+'" r=".9" fill="#9aa9a2"/>'}
+    });
+    out+=line([P(14.3,.5,9.1),P(14.3,.5,.55)],OUT,4.6)+line([P(14.3,.5,9.1),P(14.3,.5,.55)],'#e8905f',2.4);
+    out+=box3(14,.3,0,.3,.3,13.2,'dark',.8)+box3(20.9,.3,0,.3,.3,13.2,'dark',.8);
+    out+=box3(14,-1.4,13,7.2,2.1,.3,'green',.9);
+    out+=poly([P(15.4,.7,13.08),P(19.3,.7,13.08),P(19.3,.7,13.22),P(15.4,.7,13.22)],'#f7f5ee','none',0);
+    for(var m=0;m<3;m++){var mp=P(19.6+m*.28,.7,13.15);out+='<circle class="led" style="animation-delay:'+(m*.4)+'s" cx="'+r1(mp[0])+'" cy="'+r1(mp[1])+'" r="1.2"/>'}
+    return out;
+  }
+  function laptopSvg(){
+    var out=box3(1,10,0,6,5.2,.35,'cream');
+    var tp=function(u,v){return P(1+6*u,10+5.2*v,.35)};
+    for(var rw=0;rw<4;rw++)for(var cl=0;cl<10;cl++) out+=poly([tp(.1+cl*.08,.1+rw*.12),tp(.17+cl*.08,.1+rw*.12),tp(.17+cl*.08,.19+rw*.12),tp(.1+cl*.08,.19+rw*.12)],'#fbfaf6','#cfc9bb',.4);
+    out+=poly([tp(.35,.72),tp(.65,.72),tp(.65,.92),tp(.35,.92)],'#e4e0d4','#cfc9bb',.6);
+    var Q=function(u,v){return P(1+6*u,10.2-1.1*v,.35+4.35*v)};
+    out+=poly([Q(0,0),Q(1,0),Q(1,1),Q(0,1)],'#222d29',OUT,1);
+    out+=poly([Q(.04,.07),Q(.96,.07),Q(.96,.95),Q(.04,.95)],'#f6f4ec','none',0);
+    out+=poly([Q(.04,.84),Q(.96,.84),Q(.96,.95),Q(.04,.95)],'#e1ddd0','none',0);
+    [['#ee9d6f',.08,.34],['#9fd9bb',.38,.64],['#cdc8b9',.68,.94]].forEach(function(t,i){
+      out+=poly([Q(t[1],.34),Q(t[2],.34),Q(t[2],.76),Q(t[1],.76)],t[0],'#bdb8aa',.6);
+      out+=poly([Q(t[1],.16),Q(t[2]-.08,.16),Q(t[2]-.08,.23),Q(t[1],.23)],'#cdc8b9','none',0);
+      out+='<polygon class="arr" style="animation-delay:'+(i*.15)+'s" points="'+pts([Q(t[1],.34),Q(t[2],.34),Q(t[2],.76),Q(t[1],.76)])+'"/>';
+    });
+    return out;
+  }
+  function routerSvg(){
+    var out=box3(6.6,2.7,0,2.8,2.2,.7,'cream');
+    for(var v=0;v<4;v++) out+=line([P(7.2,3+v*.4,.7),P(8.8,3+v*.4,.7)],'#bdb8aa',.8);
+    out+=box3(6.8,2.9,.7,.22,.22,3.2,'dark',.8)+box3(9.0,2.9,.7,.22,.22,3.2,'dark',.8);
+    for(var l=0;l<4;l++){var lp=P(6.95+l*.55,4.9,.35);out+='<circle class="led" style="animation-delay:'+(l*.35)+'s" cx="'+r1(lp[0])+'" cy="'+r1(lp[1])+'" r="1.5"/>'}
+    return out;
+  }
+  function rings(c,R,cls,n){var o='',rx=R*1.2247*S,ry=R*.7071*S;ext(c[0]-rx,c[1]-ry);ext(c[0]+rx,c[1]+ry);
+    for(var i=0;i<n;i++) o+='<ellipse class="ringw '+cls+'" style="animation-delay:'+(i*.8)+'s" cx="'+r1(c[0])+'" cy="'+r1(c[1])+'" rx="'+r1(rx)+'" ry="'+r1(ry)+'"/>';
+    return o;
+  }
+  function badge(p,kind){
+    var col=kind==='bt'?'#2563eb':'#2f6b57', g='<g transform="translate('+r1(p[0])+' '+r1(p[1])+')"><circle r="13" fill="'+col+'" stroke="#fff" stroke-width="1.5"/>';
+    if(kind==='bt') g+='<path d="M-3.4 -4.6L3.6 2.2L0.2 5.8V-5.8L3.6 -2.2L-3.4 4.6" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>';
+    else g+='<path d="M-7 -1.5a10 10 0 0 1 14 0M-4.2 1.6a6 6 0 0 1 8.4 0" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/><circle cy="5" r="1.7" fill="#fff"/>';
+    return g+'</g>';
+  }
+  var SPEED={bt:[55,150,'#3b82f6',2.8],router:[260,34,'#34d399',2.4],direct:[380,28,'#34d399',2.4],usb:[650,22,'#34d399',2.2]};
+  var WD={bt:'3.2s',router:'1.4s',direct:'1s',usb:'.5s'}, RD={bt:'3.4s',router:'2.2s',direct:'1.8s',usb:'2s'};
+  function scene(kind){
+    var o='', router=kind==='router', sp=SPEED[kind];
+    o+=plate(-.2,8.4,8.6,7.8)+plate(13.2,-2.9,9.2,4.6); if(router)o+=plate(5.6,1.6,5.2,4.8);
+    var A=P(4,9.2,5.0), R=P(13.6,-.2,7.2), B=P(8,3.8,2.7), tail='';
+    if(router){
+      var cb=[P(9.4,4.3,.45),P(11.9,4.3,.45),P(11.9,.5,.45),P(14.3,.5,.45)];
+      o+=line(cb,OUT,7)+line(cb,'#9aa9a2',4);
+    }
+    if(kind==='usb'){
+      var paths=[];
+      [0,.45,.9].forEach(function(f){
+        var c=[P(14.1,.2+f,.45),P(12+f,.2+f,.45),P(12+f,12.3+f,.45),P(7,12.3+f,.45)];
+        o+=line(c,OUT,6)+line(c,['#9aa9a2','#8fb3a3','#a6a2b8'][Math.round(f/.45)],3.2);
+        paths.push(c);
+      });
+      tail=paths.map(function(c){var d='M'+c.map(E).join(' L'); return dots(d,plen(c),sp[0],sp[1],sp[2],sp[3])}).join('');
+    }
+    if(kind==='bt'||kind==='direct'){var cls=kind==='bt'?'bt':'';o+=rings(P(17.4,-.4,.35),kind==='bt'?2.6:3.4,cls,3)+rings(P(4,13,.35),kind==='bt'?2.4:3,cls,3)}
+    if(router) o+=rings(P(8,3.8,.35),3.2,'',3);
+    if(router) o+=routerSvg();
+    o+=rackSvg()+laptopSvg();
+    if(kind==='bt'||kind==='direct'){
+      var Ct=[(A[0]+R[0])/2,Math.min(A[1],R[1])-90]; ext(Ct[0],Ct[1]+40);
+      o+='<path class="link '+kind+'" d="M'+E(R)+' Q'+E(Ct)+' '+E(A)+'"/>';
+      o+=badge([(A[0]+2*Ct[0]+R[0])/4,(A[1]+2*Ct[1]+R[1])/4],kind);
+      tail=dots('M'+E(R)+' Q'+E(Ct)+' '+E(A),qlen(R,Ct,A),sp[0],sp[1],sp[2],sp[3]);
+    }
+    if(router){
+      var Cr=[(A[0]+B[0])/2,Math.min(A[1],B[1])-70]; ext(Cr[0],Cr[1]+25);
+      o+='<path class="link" d="M'+E(A)+' Q'+E(Cr)+' '+E(B)+'"/>';
+      o+=badge([(A[0]+2*Cr[0]+B[0])/4,(A[1]+2*Cr[1]+B[1])/4],'wifi');
+      var rev='M'+E(cb[3])+' L'+E(cb[2])+' L'+E(cb[1])+' L'+E(cb[0])+' L'+E(B)+' Q'+E(Cr)+' '+E(A);
+      tail=dots(rev,plen([cb[3],cb[2],cb[1],cb[0],B])+qlen(B,Cr,A),sp[0],sp[1],sp[2],sp[3]);
+    }
+    o+=tail;
+    o+=lab(1,'Laptop',4.2,18.6,0)+(router?lab(2,'Wi-Fi router',11.6,7.9,0)+lab(3,'Phone rack server',17.4,4.8,0):lab(2,'Phone rack server',17.4,4.8,0));
+    return o;
+  }
+
+  /* ================= build the four scenes once ================= */
+  var KINDS=['router','bt','direct','usb'], SC={}, NAMES={router:'Wi-Fi router',bt:'Bluetooth',direct:'Direct Wi-Fi',usb:'USB cables'};
+  KINDS.forEach(function(k){SC[k]=scene(k)});
+  var pad=34, w=bx1-bx0+pad*2, h=by1-by0+pad*2;
+  var vb=r1(bx0-pad)+' '+r1(by0-pad)+' '+r1(w)+' '+r1(h);
+  function svgFor(k){return '<svg viewBox="'+vb+'" role="img" aria-label="Data moving from a rack of old phones to a laptop: '+NAMES[k]+'" style="--wd:'+WD[k]+';--rd:'+RD[k]+'">'+SC[k]+'</svg>'}
+
+  /* ================= plain window: scroll / swipe / drag sideways ================= */
+  var hero=document.getElementById('heroStage');
+  hero.innerHTML='<div class="aps5 stg"><div class="aps5-box"></div></div>';
+  var bx=hero.querySelector('.aps5-box'), cur=-1, busy=false, hov=false, vis=true, lastMove=Date.now();
+  function show(i,dir){
+    var l=document.createElement('div'); l.className='lay'; l.innerHTML=svgFor(KINDS[i]);
+    if(cur<0){bx.appendChild(l); cur=i; return}
+    var old=bx.querySelector('.lay');
+    l.style.transition='none'; l.style.transform='translateX('+(dir*100)+'%)'; bx.appendChild(l); void l.offsetWidth;
+    l.style.transition=''; l.style.transform='none';
+    old.style.transform='translateX('+(-dir*100)+'%)';
+    setTimeout(function(){old.remove()},900);
+    cur=i;
+  }
+  function go(dir,wrap){
+    var n=cur+dir; if(wrap) n=(n+4)%4;
+    if(busy||n<0||n>3) return false;
+    busy=true; lastMove=Date.now(); show(n,dir);
+    setTimeout(function(){busy=false},1100); return true;
+  }
+  show(0,1);
+  /* wheel / trackpad over the box: change scene. At the first or last scene the page scrolls normally. */
+  var acc=0;
+  hero.addEventListener('wheel',function(e){
+    var d=Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY, dir=d>0?1:-1, n=cur+dir;
+    if(n<0||n>3) return;
+    e.preventDefault(); if(busy) return;
+    acc+=d; if(Math.abs(acc)>40){acc=0; go(dir)}
+  },{passive:false});
+  /* swipe on phones, drag with the mouse */
+  var sx=null;
+  hero.addEventListener('pointerdown',function(e){sx=e.clientX});
+  addEventListener('pointerup',function(e){
+    if(sx===null) return; var dx=e.clientX-sx; sx=null;
+    if(Math.abs(dx)>50) go(dx<0?1:-1);
+  });
+  /* gentle auto-play: every 7s, paused while the mouse is over the box or it is off screen */
+  hero.addEventListener('mouseenter',function(){hov=true}); hero.addEventListener('mouseleave',function(){hov=false;lastMove=Date.now()});
+  if('IntersectionObserver' in window) new IntersectionObserver(function(e){vis=e[0].isIntersecting}).observe(hero);
+  setInterval(function(){if(!hov&&vis&&!document.hidden&&Date.now()-lastMove>=7000) go(1,true)},500);
+
+  /* ================= scroll reveal for the other sections ================= */
+  var els=[].slice.call(document.querySelectorAll('.sr'));
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15});
+    els.forEach(function(e){io.observe(e)});
+  } else els.forEach(function(e){e.classList.add('in')});
+})();
+</script>
+</body>
+</html>
